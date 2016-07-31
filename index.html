@@ -3,7 +3,8 @@
     <title>Pinger | The First Screen</title>
 
     <!-- CSS Includes -->
-    <link rel="stylesheet" href="public/css/boostrap.min.css">
+    <link rel="stylesheet" href="public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="public/css/waves.min.css">
     <link rel="stylesheet" href="public/css/style.css" media="all">
 
     <!-- Google Web Fonts -->
@@ -13,7 +14,11 @@
   </head>
   <body>
 
-    <p>This is a tryout</p>
+
+    <div class="center-box" id="center-box">
+      <div id="login-area" class="login-area shadow"></div>
+    </div>
+
 
 
 
@@ -22,6 +27,190 @@
     <script src="public/js/underscore.js"></script>
     <script src="public/js/backbone.js"></script>
     <script src="public/js/bootstrap.min.js"></script>
+    <script src="public/js/waves.min.js"></script>
+    <script src="public/js/socket.io.js"></script>
+
+    <script type="text/template" id="login-template">
+      <div class="row no-margin">
+        <div class="col-md-8 logo-container">
+            <h2 class="u-case logo"><%= title %></h2>
+            <p class="tag-line"><%= tagline %></p>
+        </div>
+        <div class="col-md-4 login-container">
+          <form class="login-form" method="post" id="login-form">
+            <div class="row">
+              <div class="col-md-12">
+                <input type="text" name="u-name" placeholder="enter username" class="input input-field" required="required"/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <input type="email" name="email" class="input input-field" placeholder="enter email address"/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <button type="submit" class="input input-btn shadow" value="proceed">Proceed</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/template" id="chat-template">
+      <div class="row no-margin">
+        <div class="col-md-8 ">
+            <div class="row chat-msg-section">
+              <div class="col-md-12">
+                <h4 class="chat-msg-title">Please select a user to start the chat</h4>
+              </div>
+            </div>
+            <div class="row msg-area">
+              <div class="col-md-12 no-padding">
+                <ul class="message-list">
+                  <li class="message-list-item">
+                    <div class="row">
+                      <div class="col-md-1">
+                        <div class="profile-img"><span class="p-text">M</span></div>
+                      </div>
+                      <div class="col-md-11" style="padding-left: 0;">
+                        <p class="msg-text">Hello, How are you?</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="message-list-item">
+                    <div class="row">
+
+                      <div class="col-md-11" style="padding-left: 0;">
+                        <p class="msg-text pull-right">I am doing well. How about you?</p>
+                      </div>
+                      <div class="col-md-1">
+                        <div class="profile-img"></div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="message-list-item">
+                    <div class="row">
+                      <div class="col-md-1">
+                        <div class="profile-img"></div>
+                      </div>
+                      <div class="col-md-11" style="padding-left: 0;">
+                        <p class="msg-text">Hello, How are you?</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="message-list-item">
+                    <div class="row">
+
+                      <div class="col-md-11" style="padding-left: 0;">
+                        <p class="msg-text pull-right">I am doing well. How about you?</p>
+                      </div>
+                      <div class="col-md-1">
+                        <div class="profile-img"></div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="message-list-item">
+                    <div class="row">
+
+                      <div class="col-md-11" style="padding-left: 0;">
+                        <p class="msg-text pull-right">I am doing well. How about you?</p>
+                      </div>
+                      <div class="col-md-1">
+                        <div class="profile-img"></div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="message-list-item">
+                    <div class="row">
+
+                      <div class="col-md-11" style="padding-left: 0;">
+                        <p class="msg-text pull-right">I am doing well. How about you?</p>
+                      </div>
+                      <div class="col-md-1">
+                        <div class="profile-img"></div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="message-list-item">
+                    <div class="row">
+                      <div class="col-md-1">
+                        <div class="profile-img"></div>
+                      </div>
+                      <div class="col-md-11" style="padding-left: 0;">
+                        <p class="msg-text">Hello, How are you?</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="message-list-item">
+                    <div class="row">
+
+                      <div class="col-md-11" style="padding-left: 0;">
+                        <p class="msg-text pull-right">I am doing well. How about you?</p>
+                      </div>
+                      <div class="col-md-1">
+                        <div class="profile-img"></div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="message-list-item">
+                    <div class="row">
+
+                      <div class="col-md-11" style="padding-left: 0;">
+                        <p class="msg-text pull-right">I am doing well. How about you?</p>
+                      </div>
+                      <div class="col-md-1">
+                        <div class="profile-img"></div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="row chat-type-area">
+              <div class="col-md-8 no-padding">
+                <textarea name="chat-text" id="chat-type-text" class="chat-textbox" placeholder="enter message"></textarea>
+              </div>
+              <div class="col-md-4 no-padding">
+                  <button class="send-btn waves-effect">Send</button>
+              </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="row  chat-user-list">
+            <div class="col-md-12">
+              <h4 class="chat-msg-title">Online Users</h4>
+            </div>
+          </div>
+          <div class="row user-list-area">
+            <div class="col-md-12 no-padding">
+              <ul>
+                <li class="waves-effect waves-block">Jailany Mohamed</li>
+                <li class="waves-effect waves-block">Arvind Jayaraman</li>
+                <li class="waves-effect waves-block">Karthick Loganathan</li>
+                <li class="waves-effect waves-block">Mohammed Shafi</li>
+              </ul>
+            </div>
+          </div>
+          <div class="row list-action-area">
+            <div class="col-md-12 no-padding" >
+              <button class="exit-btn waves-effect">Leave Pinger</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+
     <script src="client/index.js"></script>
+
+    <script>
+      $(document).ready(function(){
+        Waves.attach('.button', ['waves-button', 'waves-float']);
+        Waves.init();
+      });
+    </script>
+
   </body>
 </html>

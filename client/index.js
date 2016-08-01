@@ -2,10 +2,6 @@ var userModel = Backbone.Model.extend({
   urlRoot : '/chat'
 });
 
-var chatModel = Backbone.Model.extend({
-  urlRoot : '/users'
-});
-
 var LoginView = Backbone.View.extend({
 
   events: {'submit': 'save'},
@@ -30,6 +26,9 @@ var LoginView = Backbone.View.extend({
     };
     this.model.save(data,{
       success : function(model, response){
+        console.log(JSON.parse(JSON.stringify(response.data)));
+        var id = response.data;
+        document.cookie ='user-id='+id.ops[0].userId+'';
         document.cookie="chat=1";
         location.reload();
       },
@@ -39,75 +38,7 @@ var LoginView = Backbone.View.extend({
     });
     return false;
   }
-
-
 });
-
-var ChatView = Backbone.View.extend({
-  events: {
-    'click .exit-btn': 'exit'
-  },
-  initialize: function(){
-    var socket = io.connect();
-    socket.emit('getUsers', {}, function(response){
-      console.log(response);
-    });
-
-    socket.on('usernames', function(data){
-      console.log(data);
-    });
-    this.render();
-  },
-
-  render: function(){
-    var template = _.template( $("#chat-template").html());
-    this.$el.html(template);
-  },
-
-  exit : function(){
-    document.cookie = "chat=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-    location.reload();
-  },
-
-  userList : function(){
-    console.log("testa");
-  }
-});
-
-var auth = getCookie("chat");
-if(auth){
-    var chatView = new ChatView({ el: $("#login-area"), model: new chatModel() });
-}else{
-    var loginView = new LoginView({ el: $("#login-area"), model: new userModel() });
-}
-
-/*
-var AppRouter =  Backbone.Router.extend({
-  routes : {
-    '' : 'index',
-    'index' : 'index',
-    'chat' : 'chat'
-  },
-
-  index : function(){
-    if(auth){
-        var chatView = new ChatView({ el: $("#login-area"), model: new chatModel() });
-    }else{
-        var loginView = new LoginView({ el: $("#login-area"), model: new userModel() });
-    }
-  },
-  chat : function(){
-    if(auth){
-        var chatView = new ChatView({ el: $("#login-area"), model: new chatModel() });
-    }else{
-        var loginView = new LoginView({ el: $("#login-area"), model: new userModel() });
-    }
-  }
-});
-
-new AppRouter;
-Backbone.history.start();
-*/
 
 function getCookie(cname) {
     var name = cname + "=";

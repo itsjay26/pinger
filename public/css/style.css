@@ -27,6 +27,10 @@ body{
   margin: 0;
 }
 
+.time-text{
+    color: #aaa;
+}
+
 .no-padding{
   padding: 0;
 }

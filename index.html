@@ -63,119 +63,24 @@
         <div class="col-md-8 ">
             <div class="row chat-msg-section">
               <div class="col-md-12">
-                <h4 class="chat-msg-title">Please select a user to start the chat</h4>
+                <h4 class="chat-msg-title" id="current-msg-rec">Please select a user to start the chat</h4>
               </div>
             </div>
             <div class="row msg-area">
               <div class="col-md-12 no-padding">
-                <ul class="message-list">
-                  <li class="message-list-item">
-                    <div class="row">
-                      <div class="col-md-1">
-                        <div class="profile-img"><span class="p-text">M</span></div>
-                      </div>
-                      <div class="col-md-11" style="padding-left: 0;">
-                        <p class="msg-text">Hello, How are you?</p>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="message-list-item">
-                    <div class="row">
-
-                      <div class="col-md-11" style="padding-left: 0;">
-                        <p class="msg-text pull-right">I am doing well. How about you?</p>
-                      </div>
-                      <div class="col-md-1">
-                        <div class="profile-img"></div>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="message-list-item">
-                    <div class="row">
-                      <div class="col-md-1">
-                        <div class="profile-img"></div>
-                      </div>
-                      <div class="col-md-11" style="padding-left: 0;">
-                        <p class="msg-text">Hello, How are you?</p>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="message-list-item">
-                    <div class="row">
-
-                      <div class="col-md-11" style="padding-left: 0;">
-                        <p class="msg-text pull-right">I am doing well. How about you?</p>
-                      </div>
-                      <div class="col-md-1">
-                        <div class="profile-img"></div>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="message-list-item">
-                    <div class="row">
-
-                      <div class="col-md-11" style="padding-left: 0;">
-                        <p class="msg-text pull-right">I am doing well. How about you?</p>
-                      </div>
-                      <div class="col-md-1">
-                        <div class="profile-img"></div>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="message-list-item">
-                    <div class="row">
-
-                      <div class="col-md-11" style="padding-left: 0;">
-                        <p class="msg-text pull-right">I am doing well. How about you?</p>
-                      </div>
-                      <div class="col-md-1">
-                        <div class="profile-img"></div>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="message-list-item">
-                    <div class="row">
-                      <div class="col-md-1">
-                        <div class="profile-img"></div>
-                      </div>
-                      <div class="col-md-11" style="padding-left: 0;">
-                        <p class="msg-text">Hello, How are you?</p>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="message-list-item">
-                    <div class="row">
-
-                      <div class="col-md-11" style="padding-left: 0;">
-                        <p class="msg-text pull-right">I am doing well. How about you?</p>
-                      </div>
-                      <div class="col-md-1">
-                        <div class="profile-img"></div>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="message-list-item">
-                    <div class="row">
-
-                      <div class="col-md-11" style="padding-left: 0;">
-                        <p class="msg-text pull-right">I am doing well. How about you?</p>
-                      </div>
-                      <div class="col-md-1">
-                        <div class="profile-img"></div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
+                <ul class="message-list"></ul>
               </div>
             </div>
-            <div class="row chat-type-area">
-              <div class="col-md-8 no-padding">
-                <textarea name="chat-text" id="chat-type-text" class="chat-textbox" placeholder="enter message"></textarea>
+            <form id="chat-msg">
+              <div class="row chat-type-area">
+                <div class="col-md-8 no-padding">
+                  <textarea name="chat-text" id="chat-type-text" class="chat-textbox" placeholder="enter message"></textarea>
+                </div>
+                <div class="col-md-4 no-padding">
+                    <button type="submit" class="send-btn waves-effect">Send</button>
+                </div>
               </div>
-              <div class="col-md-4 no-padding">
-                  <button class="send-btn waves-effect">Send</button>
-              </div>
-            </div>
+            </form>
         </div>
 
         <div class="col-md-4">
@@ -187,10 +92,7 @@
           <div class="row user-list-area">
             <div class="col-md-12 no-padding">
               <ul>
-                <li class="waves-effect waves-block">Jailany Mohamed</li>
-                <li class="waves-effect waves-block">Arvind Jayaraman</li>
-                <li class="waves-effect waves-block">Karthick Loganathan</li>
-                <li class="waves-effect waves-block">Mohammed Shafi</li>
+
               </ul>
             </div>
           </div>
@@ -204,12 +106,27 @@
     </script>
 
     <script src="client/index.js"></script>
+    <script src="client/chat.js"></script>
+    <script src="client/app.js"></script>
 
     <script>
       $(document).ready(function(){
         Waves.attach('.button', ['waves-button', 'waves-float']);
         Waves.init();
+
+
+        $('body').on('click', '.user-list-area ul li', function(){
+          var name = $(this).data('name');
+          var id = $(this).data('id');
+          console.log(name);
+          $('#current-msg-rec').text(name);
+          $('#current-msg-rec').data('name', name);
+          $('#current-msg-rec').data('id', id);
+        });
+
       });
+
+
     </script>
 
   </body>

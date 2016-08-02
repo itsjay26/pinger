@@ -51,7 +51,12 @@ var ChatView = Backbone.View.extend({
       console.log(data);
       for(var i in data){
         console.log(data[i].uname);
-        that.$el.find('.user-list-area ul').append('<li data-id="'+data[i].userId+'" data-name="'+data[i].uname+'" class="waves-effect waves-block">'+data[i].uname+' <span style="display : none;" id="alert-'+data[i].userId+'">(new)</span></li>');
+        if(cookie == data[i].userId){
+          that.$el.find('.user-list-area ul').append('<li data-id="'+data[i].userId+'" data-name="'+data[i].uname+'" class="waves-effect waves-block">'+data[i].uname+' <span>(You)</span></li>');
+        }else{
+          that.$el.find('.user-list-area ul').append('<li data-id="'+data[i].userId+'" data-name="'+data[i].uname+'" class="waves-effect waves-block">'+data[i].uname+' <span style="display : none;" id="alert-'+data[i].userId+'">(new)</span></li>');
+        }
+
       }
     });
   },

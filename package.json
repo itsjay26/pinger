@@ -9,6 +9,5 @@
     "backbone" : "latest",
     "restify" : "latest",
     "body-parser" : "latest"
-
   }
 }

@@ -15,6 +15,7 @@ var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 
 // Connection URL. This is where your mongodb server is running.
+//var url = 'mongodb://localhost:27017/members';
 var url = process.env.SCALINGO_MONGO_URL;
 
 var socketArray = [];

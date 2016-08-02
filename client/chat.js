@@ -14,7 +14,8 @@ var ChatView = Backbone.View.extend({
 
   events: {
     'click .exit-btn': 'exit',
-    'submit #chat-msg' : 'sendMessage'
+    'submit #chat-msg' : 'sendMessage',
+    'keypress #chat-type-text' : 'sendOnEnter'
   },
 
   initialize: function(){
@@ -55,6 +56,50 @@ var ChatView = Backbone.View.extend({
     });
   },
 
+  sendOnEnter : function(event){
+    if(event.keyCode == 13){
+      var message = this.$el.find('#chat-type-text').val();
+      var toUserId = this.$el.find('#current-msg-rec').data('id');
+      var fromUserId = getCookie('user-id');
+      var date = new Date();
+      var h = date.getHours(), hours, m = date.getMinutes(), minutes;
+      if (h < 10){
+        hours = '0'+h;
+      }else{
+        hours = h;
+      }
+      if(m < 10){
+        minutes = '0'+m;
+      }else{
+        minutes = m;
+      }
+      var timeStamp = hours + ":" + minutes;
+      console.log(timeStamp);
+      var msg = {
+        message : message,
+        time : timeStamp,
+        to : toUserId,
+        from : fromUserId
+      };
+      console.log(msg);
+      if(message.trim() !== ''){
+        this.socket.emit('new-message', msg);
+        var html = '<li class="message-list-item">';
+        html += '<div class="row">';
+        html += '<div class="col-md-11 text-right" style="padding-left: 0;">';
+        html += '<p class="msg-text">'+message+'</p>';
+        html += '<p class="time-text no-margin">'+timeStamp+'</p>';
+        html += '</div>';
+        html += '<div class="col-md-1">';
+        html += '<div class="profile-img"><span class="p-text">You</span></div>';
+        html += '</div></div></li>';
+        this.$el.find('.message-list').append(html);
+        this.$el.find('#chat-type-text').val('')
+      }
+      var that = this;
+    }
+  },
+
   sendMessage : function(event){
     event.preventDefault();
     var message = this.$el.find('#chat-type-text').val();
@@ -93,6 +138,7 @@ var ChatView = Backbone.View.extend({
       html += '<div class="profile-img"><span class="p-text">You</span></div>';
       html += '</div></div></li>';
       this.$el.find('.message-list').append(html);
+      this.$el.find('#chat-type-text').val('')
     }
     var that = this;
   },

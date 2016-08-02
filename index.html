@@ -74,7 +74,7 @@
             <form id="chat-msg">
               <div class="row chat-type-area">
                 <div class="col-md-8 no-padding">
-                  <textarea name="chat-text" id="chat-type-text" class="chat-textbox" placeholder="enter message"></textarea>
+                  <textarea name="chat-text" id="chat-type-text" class="chat-textbox" placeholder="enter message" disabled="disabled"></textarea>
                 </div>
                 <div class="col-md-4 no-padding">
                     <button type="submit" class="send-btn waves-effect">Send</button>
@@ -114,14 +114,15 @@
         Waves.attach('.button', ['waves-button', 'waves-float']);
         Waves.init();
 
-
         $('body').on('click', '.user-list-area ul li', function(){
           var name = $(this).data('name');
           var id = $(this).data('id');
           console.log(name);
+          $(this).find('span').hide();
           $('#current-msg-rec').text(name);
           $('#current-msg-rec').data('name', name);
           $('#current-msg-rec').data('id', id);
+          $('#chat-type-text').attr('disabled', false);
         });
 
       });

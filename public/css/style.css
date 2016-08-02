@@ -214,8 +214,15 @@ ul.message-list{
 .p-text{
   position: absolute;
   color: #fff;
-  font-size: 1.5em;
+  font-size: 1em;
   left: 50%;
   top: 50%;
   transform: translate3d(-50%,-50%,0);
+}
+
+.profile-img img{
+  position: absolute;
+  left: 37%;
+  top: 22%;
+  width: 1.3em;
 }

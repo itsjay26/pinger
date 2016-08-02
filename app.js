@@ -80,7 +80,10 @@ io.sockets.on('connection', function(socket) {
   socket.on('new-message', function(msg){
     console.log(msg);
     console.log(socketArray);
-    io.sockets.emit('incoming', msg);
+    var fromId = msg.from;
+    var toId = msg.to;
+    var targetSocket = getSocketInfo(toId);
+    targetSocket.emit('incoming', msg);
   });
 
   socket.on('disconnect', function(){
@@ -146,10 +149,27 @@ function getUsersFromStore(callback){
 }
 
 function updateUserSocket(id, socket){
-  var socketData = {
-    userId : id,
-    socket : socket
-  };
+  var x = 0;
+  for(var i in socketArray){
+    if(socketArray[i].userId == id){
+      x = 1;
+    }
+  }
 
-  socketArray.push(socketData);
+  if(!x){
+    var socketData = {
+      userId : id,
+      socket : socket
+    };
+    socketArray.push(socketData);
+    console.log(socketArray);
+  }
+}
+
+function getSocketInfo(id){
+  for(var i in socketArray){
+    if(socketArray[i].userId == id){
+      return socketArray[i].socket;
+    }
+  }
 }

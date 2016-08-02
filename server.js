@@ -15,11 +15,11 @@ var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 
 // Connection URL. This is where your mongodb server is running.
-var url = 'mongodb://localhost:27017/members';
+var url = process.env.SCALINGO_MONGO_URL;
 
 var socketArray = [];
 
-server.listen(3000);
+server.listen(process.env.PORT);
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');

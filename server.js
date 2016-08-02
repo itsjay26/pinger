@@ -19,7 +19,7 @@ var url = 'mongodb://localhost:27017/members';
 
 var socketArray = [];
 
-server.listen(3001);
+server.listen(3000);
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
